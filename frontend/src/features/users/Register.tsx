@@ -27,7 +27,7 @@ const Register = () => {
     username: "",
     password: "",
     displayName: "",
-    phoneNumber: null,
+    phoneNumber: "",
   });
 
   const getFieldError = (fieldName: string) => {

@@ -2,7 +2,7 @@ export interface RegisterMutation {
   username: string;
   password: string;
   displayName: string;
-  phoneNumber: number | null;
+  phoneNumber: string;
 }
 
 export interface LoginMutation {
@@ -36,4 +36,22 @@ export interface User {
   token: string;
   displayName: string;
   phoneNumber: number;
+}
+
+export interface Item {
+  _id: string;
+  user: User;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
+  price: number;
+}
+
+export interface ItemMutation {
+  title: string;
+  description: string;
+  category: string;
+  image: File | null;
+  price: number;
 }

@@ -11,6 +11,7 @@ import {
   persistReducer,
 } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
+import { itemsReducer } from "../features/items/itemsSlice";
 
 const usersPersistConfig = {
   key: "store:users",
@@ -19,6 +20,7 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
+  items: itemsReducer,
   users: persistReducer(usersPersistConfig, usersReducer),
 });
 
