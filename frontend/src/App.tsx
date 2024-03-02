@@ -5,6 +5,8 @@ import Register from "./features/users/Register";
 import Login from "./features/users/Login";
 import Items from "./features/items/Items";
 import NavBar from "./components/UI/NavBar/NavBar";
+import FullItem from "./features/items/Components/FullItem";
+import CreateNewItem from "./features/items/CreateNewItem";
 
 function App() {
   return (
@@ -16,14 +18,15 @@ function App() {
       <main>
         <Container maxWidth="lg">
           <Grid container>
-            <Grid item lg={3}>
+            <Grid item lg={2}>
               <NavBar />
             </Grid>
-            <Grid item lg={9}>
+            <Grid item lg={10}>
               <Routes>
                 <Route path="/" element={<Items />} />
+                <Route path="/create" element={<CreateNewItem />} />
                 <Route path="/category/:id" element={<Items />} />
-                {/* <Route path="/items/:id" element={} /> */}
+                <Route path="/items/:id" element={<FullItem />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="*" element={<h1>Not found</h1>} />

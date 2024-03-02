@@ -43,7 +43,10 @@ export interface Item {
   user: User;
   title: string;
   description: string;
-  category: string;
+  category: {
+    _id: string;
+    title: string;
+  }
   image: string;
   price: number;
 }

@@ -26,7 +26,10 @@ itemsRouter.get("/:id", async (req, res, next) => {
       return res.status(404).send({ error: "Wrong ObjectId!" });
     }
 
-    const item = await Item.findById(_id).populate("user", "username");
+    const item = await Item.findById(_id).populate(
+      "user",
+      "username displayName phoneNumber"
+    ).populate("category", "title");
 
     if (!item) {
       return res.status(404).send({ error: "Not found!" });

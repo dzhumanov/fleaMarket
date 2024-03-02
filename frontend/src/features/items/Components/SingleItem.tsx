@@ -1,6 +1,21 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  styled,
+} from "@mui/material";
 import { Item } from "../../../types";
 import { apiURL } from "../../../constants";
+import { NavLink } from "react-router-dom";
+
+const Link = styled(NavLink)({
+  color: "inherit",
+  textDecoration: "none",
+  "&:hover": {
+    color: "inherit",
+  },
+});
 
 interface Props {
   item: Item;
@@ -21,9 +36,11 @@ const SingleItem: React.FC<Props> = ({ item }) => {
         alt="Your Image"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {item.title}
-        </Typography>
+        <Link to={`/items/${item?._id}`}>
+          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+            {item?.title}
+          </Typography>
+        </Link>
         <Typography variant="body2" color="text.secondary">
           {item.price} SOM
         </Typography>

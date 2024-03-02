@@ -48,7 +48,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
       >
         <MenuItem>
           <Typography variant="h5" component="div" sx={{ textAlign: "center" }}>
-            <Link to="/addNew">Sell something</Link>
+            <Link to="/create">Sell something</Link>
           </Typography>
         </MenuItem>
         <MenuItem onClick={handleLogout}>
