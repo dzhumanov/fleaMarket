@@ -55,3 +55,21 @@ export const createItem = createAsyncThunk<
     console.error(e);
   }
 });
+
+export const deleteItem = createAsyncThunk<void, string, { state: RootState }>(
+  "items/delete",
+  async (itemId: string, thunkApi) => {
+    try {
+      const state = thunkApi.getState();
+      const token = state.users.user?.token;
+
+      if (token) {
+        await axiosApi.delete(`/items/${itemId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+);

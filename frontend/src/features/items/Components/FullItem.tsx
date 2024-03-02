@@ -4,18 +4,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { apiURL } from "../../../constants";
 import Preloader from "../../../components/UI/Preloader/Preloader";
-import { fetchOneItem } from "../itemsThunk";
+import { deleteItem, fetchOneItem } from "../itemsThunk";
 import { selectSingleItem, selectSingleItemLoading } from "../itemsSlice";
+import { selectUser } from "../../users/usersSlice";
 
 const FullItem = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id?: string }>();
   const item = useAppSelector(selectSingleItem);
+  const user = useAppSelector(selectUser);
   const loading = useAppSelector(selectSingleItemLoading);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate(-1);
+  };
+
+  const handleDelete = async () => {
+    if (id) {
+      await dispatch(deleteItem(id));
+      navigate(-1);
+    }
   };
 
   useEffect(() => {
@@ -83,9 +92,18 @@ const FullItem = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={handleGoBack}>
-              Назад
-            </Button>
+            <Grid item container xs>
+              <Button
+                variant="contained"
+                onClick={handleGoBack}
+                sx={{ mr: "20px" }}
+              >
+                Back
+              </Button>
+              {user?._id === item?.user?._id && (
+                <Button variant="contained" onClick={handleDelete}>Delete item</Button>
+              )}
+            </Grid>
           </Grid>
         )}
       </Grid>

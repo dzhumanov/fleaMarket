@@ -95,4 +95,27 @@ itemsRouter.post(
   }
 );
 
+itemsRouter.delete("/:id", auth, async (req: RequestWithUser, res, next) => {
+  try {
+    const itemId = req.params.id;
+
+    const item = await Item.findById(itemId);
+    if (!item) {
+      return res.status(404).send({ error: "Item not found!" });
+    }
+
+    if (item.user.toString() !== req.user?._id.toString()) {
+      return res.status(403).send({ error: "You have no rights to delete this item!" });
+    }
+
+    await Item.findByIdAndDelete(itemId);
+
+    return res.send({ message: "Item deleted." });
+  } catch (e) {
+    next(e);
+  }
+});
+
+
+
 export default itemsRouter;
