@@ -5,7 +5,7 @@ import { Category } from "../../types";
 export const fetchCategories = createAsyncThunk<Category[]>(
   "categories/fetchAll",
   async () => {
-    const response = await axiosApi.get<Category[]>("/items");
+    const response = await axiosApi.get<Category[]>("/categories");
     return response.data;
   }
 );
@@ -17,5 +17,3 @@ export const fetchOneCategory = createAsyncThunk<Category, string>(
     return response.data;
   }
 );
-
-
