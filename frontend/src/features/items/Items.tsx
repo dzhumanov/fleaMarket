@@ -1,19 +1,36 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { selectItems } from "./itemsSlice";
 import SingleItem from "./Components/SingleItem";
 import { useEffect } from "react";
-import { fetchItems } from "./itemsThunk";
+import { fetchByCategory, fetchItems } from "./itemsThunk";
+import { useParams } from "react-router-dom";
+import { selectSingleCategory } from "../categories/categoriesSlice";
+import { fetchOneCategory } from "../categories/categoriesThunk";
 
 const Items = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector(selectItems);
+  const category = useAppSelector(selectSingleCategory);
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchItems());
-  }, [dispatch]);
+    if (id) {
+      dispatch(fetchByCategory(id));
+      dispatch(fetchOneCategory(id));
+    } else {
+      dispatch(fetchItems());
+    }
+  }, [dispatch, id]);
+
   return (
     <>
+      {id ? (
+        <Typography variant="h1">{category?.title}</Typography>
+      ) : (
+        <Typography variant="h1">Items</Typography>
+      )}
+
       <Grid
         item
         container

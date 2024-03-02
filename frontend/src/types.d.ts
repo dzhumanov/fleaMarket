@@ -55,3 +55,8 @@ export interface ItemMutation {
   image: File | null;
   price: number;
 }
+
+export interface Category {
+  _id: string;
+  title: string;
+}
