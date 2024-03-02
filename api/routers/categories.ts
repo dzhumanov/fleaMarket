@@ -1,6 +1,6 @@
 import express from "express";
 import Category from "../models/Category";
-import mongoose, { Types, mongo } from "mongoose";
+import { Types } from "mongoose";
 
 const categoriesRouter = express.Router();
 
@@ -30,29 +30,6 @@ categoriesRouter.get("/:id", async (req, res, next) => {
 
     res.send(item);
   } catch (e) {
-    next(e);
-  }
-});
-
-categoriesRouter.post("/", async (req, res, next) => {
-  try {
-    const categoryData = {
-      title: req.body.title,
-    };
-
-    const category = new Category(categoryData);
-
-    await category.save();
-    return res.send(category);
-  } catch (e) {
-    if (e instanceof mongoose.Error.ValidationError) {
-      return res.status(422).send(e);
-    }
-
-    if (e instanceof mongo.MongoServerError && e.code === 11000) {
-      return res.status(422).send({ message: "Title should be unique" });
-    }
-
     next(e);
   }
 });

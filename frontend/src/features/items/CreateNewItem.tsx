@@ -37,7 +37,7 @@ const CreateNewItem = () => {
       }}
     >
       <Typography variant="h4">Create new post</Typography>
-      <ItemForm onSubmit={onFormSubmit}/>
+      <ItemForm onSubmit={onFormSubmit} />
     </Container>
   );
 };

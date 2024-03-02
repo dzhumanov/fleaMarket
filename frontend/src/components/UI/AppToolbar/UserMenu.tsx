@@ -37,7 +37,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
   return (
     <>
       <Button onClick={handleClick} sx={{ color: "#000", fontSize: "32px" }}>
-        Hello, {user.username}
+        Hello, {user.displayName}
       </Button>
 
       <Menu

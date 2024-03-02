@@ -1,16 +1,20 @@
-import { Grid, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { selectItems } from "./itemsSlice";
-import SingleItem from "./Components/SingleItem";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { selectItems, selectItemsLoading } from "./itemsSlice";
 import { fetchByCategory, fetchItems } from "./itemsThunk";
 import { useParams } from "react-router-dom";
+
 import { selectSingleCategory } from "../categories/categoriesSlice";
 import { fetchOneCategory } from "../categories/categoriesThunk";
+
+import { Grid, Typography } from "@mui/material";
+import SingleItem from "./Components/SingleItem";
+import Preloader from "../../components/UI/Preloader/Preloader";
 
 const Items = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector(selectItems);
+  const loading = useAppSelector(selectItemsLoading);
   const category = useAppSelector(selectSingleCategory);
   const { id } = useParams();
 
@@ -35,18 +39,24 @@ const Items = () => {
         </Typography>
       )}
 
-      <Grid
-        item
-        container
-        justifyContent="space-between"
-        sx={{
-          mt: "10px",
-        }}
-      >
-        {items.map((item) => (
-          <SingleItem item={item} key={item._id} />
-        ))}
-      </Grid>
+      {loading ? (
+        <Preloader loading={loading} />
+      ) : (
+        <Grid
+          item
+          container
+          justifyContent="space-between"
+          sx={{
+            mt: "10px",
+          }}
+        >
+          {items.length > 0 ? (
+            items.map((item) => <SingleItem item={item} key={item._id} />)
+          ) : (
+            <Typography variant="h3">No items yet</Typography>
+          )}
+        </Grid>
+      )}
     </>
   );
 };
