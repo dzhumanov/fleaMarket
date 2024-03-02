@@ -28,7 +28,7 @@ const SingleItem: React.FC<Props> = ({ item }) => {
     cardImage = apiURL + "/" + item.image;
   }
   return (
-    <Card sx={{ maxWidth: 270, width: "100%", mb: "15px" }}>
+    <Card sx={{ maxWidth: 300, width: "100%", mb: "15px" }}>
       <CardMedia
         component="img"
         height="140"

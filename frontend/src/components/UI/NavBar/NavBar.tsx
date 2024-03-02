@@ -23,15 +23,14 @@ const NavBar = () => {
 
   return (
     <>
-      <Typography variant="h4">Categories:</Typography>
-      <Grid container direction="column">
+      <Grid container direction="column" sx={{ mt: "40px" }}>
         <Typography variant="h3" component="div" sx={{ textAlign: "center" }}>
           <Link to={`/`}>All</Link>
         </Typography>
         {categories.map((category) => (
           <Typography
             key={category._id}
-            variant="h3"
+            variant="h4"
             component="div"
             sx={{ textAlign: "center" }}
           >

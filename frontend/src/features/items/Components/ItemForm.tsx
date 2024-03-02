@@ -17,20 +17,37 @@ const ItemForm: React.FC<Props> = ({ onSubmit }) => {
     description: "",
     category: "",
     image: null,
-    price: 0,
+    price: "",
   });
 
   const submitFormHandler = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!state.image) {
+      alert("Provide an image!");
+      return;
+    }
     onSubmit(state);
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setState((prevState) => {
-      return { ...prevState, [name]: value };
-    });
+    if (name === "price") {
+      const parsedValue = parseFloat(value);
+
+      if (parsedValue < 0) {
+        console.error("Price can't be lower than 0!");
+        alert("Price can't be lower than 0!");
+      } else {
+        setState((prevState) => {
+          return { ...prevState, [name]: value };
+        });
+      }
+    } else {
+      setState((prevState) => {
+        return { ...prevState, [name]: value };
+      });
+    }
   };
 
   const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +130,25 @@ const ItemForm: React.FC<Props> = ({ onSubmit }) => {
         </Grid>
 
         <Grid item xs>
-          <Button type="submit" color="primary" variant="contained">
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{
+              mr: "20px",
+              fontSize: "32px",
+              bgcolor: "#000",
+              color: "#fff",
+              "&:hover": {
+                bgcolor: "#fff",
+                color: "#000",
+              },
+              "&:active": {
+                bgcolor: "#000",
+                color: "#fff",
+              },
+            }}
+          >
             Create
           </Button>
         </Grid>

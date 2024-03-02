@@ -26,20 +26,21 @@ const Items = () => {
   return (
     <>
       {id ? (
-        <Typography variant="h1">{category?.title}</Typography>
+        <Typography variant="h1" fontWeight="bold">
+          {category?.title}
+        </Typography>
       ) : (
-        <Typography variant="h1">Items</Typography>
+        <Typography variant="h1" fontWeight="bold">
+          Items
+        </Typography>
       )}
 
       <Grid
         item
         container
-        spacing={2}
         justifyContent="space-between"
         sx={{
           mt: "10px",
-          border: "3px solid black",
-          bgcolor: "#fff",
         }}
       >
         {items.map((item) => (

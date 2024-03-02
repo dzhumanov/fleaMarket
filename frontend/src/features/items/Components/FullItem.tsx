@@ -1,4 +1,13 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -39,75 +48,85 @@ const FullItem = () => {
     itemImage = apiURL + "/" + item.image;
   }
   return (
-    <>
-      <Grid container>
-        {loading ? (
-          <Preloader loading={loading} />
-        ) : (
-          <Grid
-            container
-            direction="column"
-            sx={{
-              bgcolor: "#fff",
-              mb: "20px",
-              border: "3px solid black",
-              borderRadius: "10px",
-              py: "20px",
-            }}
-          >
-            <Grid item>
-              <Box
-                component="img"
-                sx={{
-                  display: "block",
-                  maxWidth: "100%",
-                  marginX: "auto",
-                }}
-                src={itemImage}
-              />
-            </Grid>
-            <Grid item container alignItems="center">
-              <Grid item lg={6} sx={{ ml: "30px" }}>
-                <Typography variant="h1">{item?.title}</Typography>
-                <Typography variant="h5">
-                  Category: {item?.category?.title}
-                </Typography>
-                <Typography variant="h5">
-                  Price:{" "}
-                  <span style={{ fontWeight: "bold" }}>{item?.price}</span> SOM
-                </Typography>
-                <Typography variant="h4">{item?.description}</Typography>
-              </Grid>
-              <Grid item lg={3} container direction="column">
-                <Grid item>
-                  <Typography variant="h3">Contacts:</Typography>
-                </Grid>
-                <Grid item container direction="column">
-                  <Typography variant="h5">
-                    Name: {item?.user.displayName}
-                  </Typography>
-                  <Typography variant="h5">
-                    Phone number: {item?.user.phoneNumber}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item container xs>
+    <Card sx={{ border: "3px solid black", borderRadius: "10px" }}>
+      {loading ? (
+        <Preloader loading={loading} />
+      ) : (
+        <>
+          <CardMedia
+            component="img"
+            height="500"
+            image={itemImage}
+            alt={item?.title}
+          />
+          <CardContent>
+            <Typography variant="h3">
+              <span style={{ fontWeight: "bold" }}>{item?.price}</span> SOM
+            </Typography>
+            <Typography variant="h2" fontWeight="bold">
+              {item?.title}
+            </Typography>
+            <Typography variant="h5">
+              Category: {item?.category?.title}
+            </Typography>
+            <Typography variant="h4">{item?.description}</Typography>
+            <Box mt={2}>
+              <Typography variant="h3">Contacts:</Typography>
+              <Typography variant="h5">
+                Name: {item?.user.displayName}
+              </Typography>
+              <Typography variant="h5">
+                Phone number: {item?.user.phoneNumber}
+              </Typography>
+            </Box>
+          </CardContent>
+          <CardActions>
+            <Button
+              variant="contained"
+              onClick={handleGoBack}
+              sx={{
+                mr: "20px",
+                fontSize: "32px",
+                bgcolor: "#000",
+                color: "#fff",
+                "&:hover": {
+                  bgcolor: "#fff",
+                  color: "#000",
+                },
+                "&:active": {
+                  bgcolor: "#000",
+                  color: "#fff",
+                },
+              }}
+            >
+              Back
+            </Button>
+            {user?._id === item?.user?._id && (
               <Button
                 variant="contained"
-                onClick={handleGoBack}
-                sx={{ mr: "20px" }}
+                onClick={handleDelete}
+                sx={{
+                  mr: "20px",
+                  fontSize: "32px",
+                  bgcolor: "#000",
+                  color: "#fff",
+                  "&:hover": {
+                    bgcolor: "#fff",
+                    color: "#000",
+                  },
+                  "&:active": {
+                    bgcolor: "#000",
+                    color: "#fff",
+                  },
+                }}
               >
-                Back
+                Delete item
               </Button>
-              {user?._id === item?.user?._id && (
-                <Button variant="contained" onClick={handleDelete}>Delete item</Button>
-              )}
-            </Grid>
-          </Grid>
-        )}
-      </Grid>
-    </>
+            )}
+          </CardActions>
+        </>
+      )}
+    </Card>
   );
 };
 
